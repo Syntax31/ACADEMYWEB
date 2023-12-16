@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center" style="height: 100vh;">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="Recuadro" style="height: auto">
+                <h2 class="text-center bg-purple text-white py-2 rounded">Restablecer Contraseña</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

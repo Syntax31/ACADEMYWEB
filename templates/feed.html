@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row custom-row">
+        <div class="col-md-4 col-12 hola" style="margin-top: 150px;background-color:#414141;min-height:450px;height:auto;border-radius:15px">
+            <button type="button" style="background-color:transparent;margin-left:150px" class="btn btn-primary" data-toggle="modal" data-target="#busquedaModal">
+                Buscar Grupo
+            </button>
+
+            {% if suggested_groups %}
+                <h3 class="text-center mt-3" style="color:white">Grupos Sugeridos</h3>
+                <div class="list-group">
+                    {% for group in suggested_groups %}
+                        <div class="list-group-item">
+                            <h5 class="mb-1"><a href="{% url 'User:group_detail' group.id %}">{{ group.nombre }}</a></h5>
+                            <p class="mb-1">{{ group.descripcion }}</p>
+                            {% if user in group.miembros.all or user == group.administrador %}
+                                <a href="{% url 'User:group_detail' group.id %}">Ir al grupo</a>
+                            {% else %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="group_id" value="{{ group.id }}">
+                                    <input type="submit" name="join_request" value="Enviar solicitud de unión">
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center mt-3">No hay grupos sugeridos.</p>
+            {% endif %}
+        </div>
+
+
+
+
+
+
+
+        <div class="col-md-6 col-12" style="margin-top:150px">
+           
+            <div class="card" >
+                <!--  botón que abrirá el modal -->
+                <button type="button" class="btn btn-custom mx-auto" data-toggle="modal" data-target="#myModal" style="background-color: #e7e7e7; border-radius: 15px;width:85%;margin:10px">
+                    ¿Qué quieres subir?
+                </button>  
+                <div class="text-center">
+                    <hr style="border-top: 2px solid #808080; width: 80%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                </div>
+                  
+                  <button type="button" class="btn btn-custom mx-auto" data-toggle="modal" data-target="#myModal" style="background-color: #e7e7e7; border-radius: 15px; width:80%; margin:10px;">
+                    <img src="{% static 'images/pdf.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px; margin-right: 35px;">
+                    <img src="{% static 'images/powerpoint.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px; margin-right: 35px;">
+                    <img src="{% static 'images/sobresalir.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px; margin-right: 35px;">
+                    <img src="{% static 'images/palabra.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px; margin-right: 35px;">
+                    <img src="{% static 'images/proyecto.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                </button>
+                <!--  modal publicacion-->
+                <div class="modal" id="myModal" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Encabezado del modal -->
+                            <div class="modal-header">
+                                <h4 class="modal-title text-center" style="color:black">Nueva Publicacion</h4>
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                            </div>
+                            <!-- Cuerpo del modal -->
+                            <div class="modal-body" style="color:black">
+                                <h5 style="color:black">{{ user.username }}</h5>
+                                <form class="center-text" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden"  name="publicar" value="1">
+                                    {{ post_form.titulo }}
+                                    <div class="text-center" style="margin:15px;">
+                                        <hr style="border-top: 2px solid #808080; width: 100%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                                    </div>
+                                   
+                                    {{ post_form.contenido }}
+                                    
+                                    <input type="file" name="archivo_adjunto" style="width:100%;height:150px;background:url({% static 'images/da.png' %});background-size:cover;color:white">
+                                    <div class="text-center">
+                                        <hr style="border-top: 2px solid #808080; width: 100%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                                    </div>
+                                    <button type="submit" class="button-publicar">Publicar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+           
+            </div>
+
+                <!-- Publicación formulario -->
+                
+
+                <hr>
+
+                {% for post in user_posts %}
+                <!-- Manejar objetos Post -->
+                <div class="cardv2" >
+                    <div class="post-header">
+                        <p style="color: black; font-weight: bold;">{{ post.autor.username }}</p>
+                        <div class="post-date"><p style="color: black; font-weight: bold;" >{{ post.fecha_publicacion }}</p></div>
+
+                    </div>
+                    <h3 style="color:white">{{ post.titulo }}</h3>
+                    <div class="post-content" style="background-color:#d4d4d4;border-radius:5px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        {{ post.contenido|safe }}
+                    </div>
+                    <div class="post-footer" >
+                        {% if post.archivo_adjunto %}
+                            Descargar: 
+                            <a  style="word-break: break-all;" href="{{ post.archivo_adjunto.url }}" download >
+                                {{ post.nombre_archivo }}
+                                {% if ".docx" in post.nombre_archivo %}
+                                    <img src="{% static 'images/palabra.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                                {% elif ".xls" in post.nombre_archivo %}
+                                    <img src="{% static 'images/sobresalir.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                                {% elif ".pdf" in post.nombre_archivo %}
+                                    <img src="{% static 'images/pdf.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                                {% elif ".pptx" in post.nombre_archivo %}
+                                    <img src="{% static 'images/powerpoint.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                                {% elif ".mpp" in post.nombre_archivo %}
+                                    <img src="{% static 'images/proyecto.png' %}" alt="Logo Mediano" class="img-fluid" style="width:30px;height:30px;">
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="post-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                        <!-- Botón para eliminar la publicación -->
+                        <form method="post" action="{% url 'User:eliminar_publicacion' post.id %}">
+                            {% csrf_token %}
+                            <button style="background-color:#d4d4d4;border-radius:5px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" type="submit" class="button-delete"  onclick="confirmarEliminacion()">Eliminar<i class="bi bi-trash3"></i></button>
+                        </form>
+                     
+                    </div>
+                    <div class="text-center">
+                        <hr style="border-top: 2px solid #808080; width: 100%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                    </div>
+                    
+                </div>
+            {% endfor %}
+
+
+                {% for post in group_posts %}
+                    <!-- Manejar objetos PostGroup -->
+                    
+                    <div class="cardv2">
+                        <div class="card-body">
+                            {% if user != post.autor %}
+                                <form method="post" action="{% url 'User:calificar_publicacion_grupo_feed' post.id %}" class="form-estrellas">
+                                    {% csrf_token %}
+                                    <div class="estrellas">
+                                        <input type="radio" id="estrella5" name="calificacion" value="5"><label for="estrella5">★</label>
+                                        <input type="radio" id="estrella4" name="calificacion" value="4"><label for="estrella4">★</label>
+                                        <input type="radio" id="estrella3" name="calificacion" value="3"><label for="estrella3">★</label>
+                                        <input type="radio" id="estrella2" name="calificacion" value="2"><label for="estrella2">★</label>
+                                        <input type="radio" id="estrella1" name="calificacion" value="1"><label for="estrella1">★</label>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn" style="background-color:rgb(0, 255, 0)">Guardar</button>
+                                </form>
+                            {% endif %}
+  
+   
+                    
+                            
+                            <span style="color:black">Total Estrellas: {{ post.total_calificaciones }}</span>
+                            <h5 class="card-title">{{ post.titulo }}</h5>
+                            <p style="color: black; font-weight: bold;">{{ post.autor.username }}</p>
+                           
+                            <p style="color: black; font-weight: bold; text-align: center;">Titulo: {{ post.titulo }}</p>
+
+                            <div class="post-date"><p style="color: black; font-weight: bold;" >{{ post.fecha_publicacion }}</p></div>
+                            <h6 class="card-subtitle mb-2 text-muted">Del grupo: </h6>
+                            
+                            <a href="{% url 'User:group_detail' post.grupo.id %}" ><span style="color:black">{{ post.grupo.nombre }}</span></a>
+                                                        <div class="post-content" style="background-color:#d4d4d4;border-radius:5px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                Descripcion:    {{ post.contenido|safe }}
+                            </div>
+                            {% if post.archivo_adjunto %}
+                                Descargar:
+                                <a href="{{ post.archivo_adjunto.url }}" download>{{ post.nombre_archivo }}</a>
+                            {% endif %}
+                            {% if user == post.autor %}
+                                <form method="post" action="{% url 'User:eliminar_publicacion_feed' post.id %}">
+                                    {% csrf_token %}
+                                    <button style="background-color:#d4d4d4;border-radius:5px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" type="submit" class="button-delete"  onclick="confirmarEliminacion()">Eliminar<i class="bi bi-trash3"></i></button>
+                                </form>
+                            {% endif %}
+                            <h6  style="color: black;"> Comentarios:({{ post.comments.count }}) </h6>
+
+                            
+                            <!-- Comentarios -->
+                            <div class="text-center">
+                                <hr style="border-top: 2px solid #808080; width: 100%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                            </div>
+                            <button class="button-comentarios" data-toggle="modal" data-target="#comentariosModal{{ post.id }}" style="width:100%; border: 2px solid transparent;">Comentarios</button>
+                            <div class="text-center">
+                                <hr style="border-top: 2px solid #808080; width: 100%; margin: 0 auto;"> <!-- Centra la línea horizontalmente -->
+                            </div>
+                            <div class="modal" id="comentariosModal{{ post.id }}" style="word-break: break-all;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Encabezado del modal -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center" style="color: black;">Comentarios ({{ post.comments.count }})</h4>
+                                            <button type="button" class="close" data-dismiss="modal">×</button>
+                                        </div>
+                                        <!-- Cuerpo del modal -->
+                                        <div class="modal-body" style="color:black">
+                                            <!-- Lista de comentarios -->
+                                            <ul class="list-group">
+                                                {% for comment in post.comments.all %}
+                                                    <li class="list-group-item" style="display: flex; justify-content: space-between; align-items: center;">
+                                                        <div class="comment" style="max-width:80%">
+                                                            <div style="font-weight: bold;">
+                                                                {{ comment.author.username }}:
+                                                            </div>
+                                                            <div>
+                                                                {{ comment.contenido }}
+                                                            </div>
+                                                        </div>
+                                                        {% if comment.author == user %}
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="bi-three-dots"></i>
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                    {% comment %} FALTA IMPLEMENTAR {% endcomment %}
+                                                                    {% comment %} <a class="dropdown-item" href="#">Editar</a> {% endcomment %}
+                                                                    <form method="post" action="{% url 'User:eliminar_comentario_grupo' comment.id %}">
+                                                                        {% csrf_token %}
+                                                                        <button type="submit" class="dropdown-item" onclick="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">Eliminar</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <!-- Formulario de comentarios -->
+                                            <form class="center-text" method="post">
+                                                {% csrf_token %}
+                                                {{ comment_form.as_p }}
+                                                <input type="hidden"  name="comentar" value="1">
+                                                <input type="hidden" name="post_id" value="{{ post.id }}">
+                                                <button type="submit" class="button-comentar">Comentar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3 col-12 hola " style=" margin-top: 150px;background-color:red">
+      
+
+        </div>
+        
+    </div>
+<script>
+    function confirmarEliminacion() {
+        if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
+            // Si el usuario confirma, envía el formulario
+            document.forms[0].submit();
+        } else {
+            // Si el usuario cancela, no se envía el formulario
+        }
+    }
+        // Cuando el usuario selecciona una calificación...
+    document.querySelectorAll('.estrellas input[type="radio"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            // Guarda la calificación en el almacenamiento local.
+            localStorage.setItem('calificacion', this.value);
+        });
+    });
+
+    // Cuando la página se carga...
+    document.addEventListener('DOMContentLoaded', function() {
+        // Recupera la calificación del almacenamiento local.
+        var calificacion = localStorage.getItem('calificacion');
+
+        // Si hay una calificación guardada...
+        if (calificacion) {
+            // Marca la estrella correspondiente.
+            document.getElementById('estrella' + calificacion).checked = true;
+        }
+    });
+    $(document).ready(function() {
+        $('#refresh-button').click(function() {
+            location.reload();
+        });
+    });
+    
+    
+    
+
+    
+</script>
+{% endblock %}

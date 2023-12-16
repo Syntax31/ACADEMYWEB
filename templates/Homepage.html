@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    
+<div class="container">
+    
+
+
+    <div class="row justify-content-center" style="height: 100vh;">
+        <div class="col-12 d-flex align-items-center justify-content-center" >
+            <button class="bottonEdit" style="margin:15px">
+                <a class="nav-link" href="{% url 'User:register' %}">
+                    <i class="bi bi-person-plus-fill"></i>
+                    <span>Registrate</span>
+                </a>
+            </button>
+            <button class="bottonEdit" style="margin:15px">
+                <a class="nav-link" href="{% url 'User:login' %}">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Iniciar sesión</span>
+                </a>
+            </button>
+        
+        </div>
+    </div>
+    <div class="container mt-4 text-center" >
+        <img src="{% static 'images/logo.png ' %}" alt="Logo Mediano" class="img-fluid" style="margin-top:-400px;width:250px;height:250px">
+
+    </div>
+    
+</div>
+{% endblock %}

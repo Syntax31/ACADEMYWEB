@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container text-center" style="margin-top:150px">
+    <h2>Crear un Nuevo Grupo</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+      </div>
+      <div class="mb-3">
+        {{ form.descripcion.label_tag }}
+        {{ form.descripcion }}
+      </div>
+      <button type="submit" class="bottonEdit">Crear Grupo<i class="bi bi-plus"></i></button>
+    </form>
+    <p style="text-align: center;">
+      Los grupos son comunidades en las que se fomenta el respeto mutuo, el intercambio de ideas y la colaboración. 
+      Únete a un grupo y participa en las conversaciones de las publicaciones.
+  </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="containe text-center" style="margin-top:100px">
+    <h1 class="mt-5">Enviar Invitación a Grupo</h1>
+
+    <p class="mb-3">Estás enviando una invitación al grupo: {{ group.nombre }}</p>
+
+    <div class="form-group text-center">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bottonEdit">    
+                <i class="bi bi-send"></i>Enviar Invitación
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

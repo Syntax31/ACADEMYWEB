@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Editar Perfil</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-group">
+            <label for="interests">Intereses:</label>
+            <table class="table table-dark" style="border:3px solid purple">
+                <tbody>
+                    {% for interest, dominion in dominions.items %}
+                        <tr>
+                            <td>
+                                <label for="interest_{{ forloop.counter }}">{{ interest }}</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="interest_{{ forloop.counter }}" name="interests" value="{{ interest }}" {% if interest in user_interests %}checked{% endif %}>
+                            </td>
+                            <td>
+                                <input type="number" name="dominion_{{ forloop.counter }}" placeholder="Nivel de dominio" class="dominion-input" value="{{ dominion }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Editar Perfil</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-group">
+            <label for="interests">Intereses:</label>
+            <table class="table table-dark" style="border:3px solid purple">
+                <tbody>
+                    {% for interest, dominion in dominions.items %}
+                        <tr>
+                            <td>
+                                <label for="interest_{{ forloop.counter }}">{{ interest }}</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="interest_{{ forloop.counter }}" name="interests" value="{{ interest }}" {% if interest in user_interests %}checked{% endif %}>
+                            </td>
+                            <td>
+                                <input type="number" name="dominion_{{ forloop.counter }}" placeholder="Nivel de dominio" class="dominion-input" value="{{ dominion }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

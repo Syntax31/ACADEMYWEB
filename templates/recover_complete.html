@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center" style="height: 100vh;">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="Recuadro" style="height: auto">
+                <h2 class="text-center bg-purple text-white py-2 rounded">Recuperación de Contraseña Completada</h2>
+                <p class="text-center">Tu contraseña ha sido restablecida con éxito. Ahora puedes iniciar sesión con tu nueva contraseña.</p>
+                <a href="{% url 'User:login' %}" class="btn btn-primary">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

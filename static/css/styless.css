@@ -1,0 +1,400 @@
+
+
+/* Estilo para resoluciones bajas (por ejemplo, menor o igual a 768px) */
+@media (max-width: 768px) {
+    .post-content {
+        max-height: none; /* Elimina la altura máxima para permitir el desplazamiento en resoluciones bajas */
+    }
+    
+}
+/*                      ESTILOS NAVBAR           */
+.navbar {
+
+    width: 100%;
+    padding: 10px 0;
+    color: #fff;
+    position: fixed; /* Agrega esta línea para que el navbar esté fijo en la parte superior */
+    /* Coloca el navbar en la parte superior de la pantalla */
+    z-index: 1000; /* Asegura que el navbar esté en la parte superior de otros elementos */
+}
+.comment{
+    background-color: #f1f1f1;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+
+
+.navbar ul {
+    list-style: none; /* Quita los puntos de lista */
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline; /* Para que los elementos de la lista estén en línea */
+    margin-right: 20px; /* Espacio entre elementos de la lista */
+}
+
+
+/* Estilos para los enlaces de navegación */
+.navbar a {
+    text-decoration: none; /* Quita la decoración de subrayado de los enlaces */
+    color: #fff; /* Color del texto de los enlaces */
+}
+/*                  STYLES DE PERFIL                   */
+
+/* LADO IZQUIERDO COLUMNA IZQUIERDA */
+/* BOTON DE EDICION DE PERFIL */
+.bottonEdit{
+
+    border: 3px solid purple;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    height: 55px;
+    width: 100px;
+ 
+}
+.bottonEdit:hover {
+    background-color: purple; /* Cambiamos el fondo a morado cuando se pasa el cursor por encima */
+}
+.input-edit{
+    border: 3px solid purple;
+
+    width: 150px
+}
+.input-edit-text{
+    border: 3px solid purple;
+
+
+}
+
+
+/* publicacion */
+.center-text {
+     /* Centra el texto horizontalmente */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 25px;
+    width: 100%;
+    height: 550px;
+
+/* Centra el texto verticalmente utilizando la altura de la ventana */
+}
+
+
+
+.section {
+    background-color:transparent;
+    border: 2px solid black;
+    color:black;
+
+    overflow: auto;
+
+    height: 100%;
+}
+
+/* style.css */
+.hide-up {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+    background-color: red;
+}
+
+
+/* Estilos para la sección de contenido */
+.content {
+    padding: 20px; /* Espaciado interior de la sección de contenido */
+}
+/* FORMULARIO DE LOGIN */
+form {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 25px;
+    width: 100%;
+}
+
+
+/* Estilo para resoluciones bajas (por ejemplo, menor o igual a 768px) */
+@media (max-width: 768px) {
+    form {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+/* LADO DERECHO PUBLICACION - PUBLICACIONES */
+
+.titulo {
+    color: rgb(0, 0, 0);
+    width: 100%; /* Usar el ancho máximo disponible */
+    border: 2px solid transparent;
+    outline: none; /* Elimina el contorno predeterminado del input al hacer clic */
+}
+
+.titulo:focus {
+    border: 2px solid transparent; /* Aplica el borde negro al hacer clic en el input */
+}
+
+.button-publicar{
+    width: 100%;
+    background-color: #d4d4d4;
+    border-radius: 5px;
+    color: black;
+    border:2px solid transparent;
+}
+.button-publicar:hover{
+    background-color: rgb(71, 71, 71);
+}
+.contenido {
+    resize: none; /* Evita que el usuario redimensione el campo de texto */
+    height:150px;
+    width: 100%; /* Usar el ancho máximo disponible */
+
+    color:rgb(0, 0, 0);
+    border-radius: 15px;
+
+}
+.button-comentarios{
+    background-color:transparent; 
+}
+.button-comentarios:hover{
+    background-color: #d4d4d4;
+}
+.archivo-adjunto {
+    width: 100%; /* Usar el ancho máximo disponible */
+    padding: 10px;
+    margin-top: 25px;
+
+    color:rgb(0, 0, 0);
+
+    border-radius: 15px;
+    box-sizing: border-box;
+    
+}
+/* Estilos para el botón de "Elegir archivo" */
+
+/* Estilos para el botón personalizado */
+
+
+
+.button-register{
+    background-color: purple;
+    color: #fff;
+    border-radius: 15px;
+    border: 3px solid purple;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+
+}
+
+form button:hover {
+    background-color: rgb(255, 18, 255);
+}
+
+
+
+/* 256x128 */
+.post-box {
+    margin-top: 15px;
+    border-radius: 15px;
+    border: 3px solid purple;
+    background-color: black;
+    background:dark;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+
+
+    max-height: 100%; /* Evita que el contenedor se desborde verticalmente */
+    overflow: hidden; /* Oculta el contenido que desborda del contenedor */
+}
+.post-box p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color:rgb(0, 0, 0), 255;
+    
+}
+
+/* NOMBRE Y FECHA */
+.post-header {
+
+
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    color:black;
+    padding: -55px;
+
+
+  
+}
+
+
+
+/* Mi perfil  */
+.post-headerRight {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    
+  
+}
+
+.post-content {
+    /* Estilos para el contenido del post */
+    margin-bottom: 10px;
+    height: 100px;
+    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si el contenido se desborda */
+    white-space: normal; /* Permite que el texto se divida en varias líneas */
+    word-wrap: break-word; 
+ 
+
+    color:rgb(0, 0, 0) ;
+}
+
+
+
+.post-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:rgb(0, 0, 0) ;
+}
+
+.post-date {
+    margin-left: auto; /* Coloca la fecha en la parte superior derecha */
+}
+
+.cardv2 {
+    background-color: #ffffff; /* Cambia el color de fondo de la tarjeta según tus preferencias */
+    color: white; /* Cambia el color del texto dentro de la tarjeta según tus preferencias */
+    border-radius: 15px; /* Añade bordes redondeados a la tarjeta */
+    padding: 20px; /* Ajusta el relleno interno según tus preferencias */
+    margin-top:15px
+}
+.cardv3 {
+    background-color: #333; /* Cambia el color de fondo de la tarjeta según tus preferencias */
+    color: white; /* Cambia el color del texto dentro de la tarjeta según tus preferencias */
+    border-radius: 15px; /* Añade bordes redondeados a la tarjeta */
+    padding: 30px; /* Ajusta el relleno interno según tus preferencias */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra a la tarjeta */
+    width: 100%;
+    min-height: 450px;
+    height: auto;
+    
+}
+.form-estrellas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.estrellas {
+    display: flex;
+    gap: 10px;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+.estrellas input[type="radio"] {
+    display: none;
+}
+
+.estrellas label {
+    font-size: 35px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.estrellas input[type="radio"]:checked ~ label {
+    color: gold;
+}
+
+
+p {
+    font-size: 1em;
+
+    color: #666;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+   
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+   
+    cursor: pointer;
+}
+
+
+.modal-content {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+.form label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.resultado {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.resultado p {
+    margin: 0;
+    color: #333;
+}
+
+.resultado a {
+    color: #333;
+    text-decoration: none;
+}
+
