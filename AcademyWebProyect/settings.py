@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-v^wu_fxq4m%nl4j5ap9_k5$k=pucpnv^_ug51^hgu)0agk5&9k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["44.195.143.67"]
 
 
 # Application definition
@@ -89,9 +89,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'AcademyWebProyectDB',
-        'USER':'root',
-        'PASSWORD':'admin',
-        
+        'HOST': '/opt/bitnami/mariadb/tmp/mysql.sock',
+        'PORT': '5432',
+        'USER': 'root',
+        'PASSWORD':':a3Wr9mskfnQ',
+
     }
 }
 
